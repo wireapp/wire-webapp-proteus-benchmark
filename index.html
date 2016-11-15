@@ -27,7 +27,15 @@
         var output = '';
 
         var suite = new Benchmark.Suite;
-        suite.add('sodium.crypto_sign_keypair', function() {
+
+        suite.add('sodium.crypto_auth_hmacsha256', function() {
+          var arrayWith32Bytes = [5, 30, 208, 218, 140, 173, 89, 133, 238, 120, 243, 172, 56, 0, 84, 80, 225, 83, 110, 68, 59, 136, 105, 202, 200, 243, 73, 174, 28, 38, 66, 246];
+          var arrayBuffer = new ArrayBuffer(arrayWith32Bytes.length);
+          var arrayBufferView = new Uint8Array(arrayBuffer);
+          var message = 'Hello';
+          var hmacsha256 = sodium.crypto_auth_hmacsha256(message, arrayBufferView);
+        }, options)
+        .add('sodium.crypto_sign_keypair', function() {
           var keypair = sodium.crypto_sign_keypair();
         }, options)
         .on('cycle', function(event) {
