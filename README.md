@@ -1,5 +1,10 @@
 # Proteus.js Benchmarks
 
+## Usage
+
+- Run `bower install`
+- Open `index.html`
+
 ## Setup
 
 **Lenovo Yoga 900-13ISK**
