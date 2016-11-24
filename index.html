@@ -62,7 +62,10 @@
             var messageSignature = sodium.crypto_sign_detached(message, ed25519SecretKeyAlice);
           }, options)
           .add('sodium.crypto_sign_ed25519_pk_to_curve25519', function() {
-            var curve25519 = sodium.crypto_sign_ed25519_pk_to_curve25519(ed25519PublicKeyBob);
+            var curve25519_pk = sodium.crypto_sign_ed25519_pk_to_curve25519(ed25519PublicKeyBob);
+          }, options)
+          .add('sodium.crypto_sign_ed25519_sk_to_curve25519', function() {
+            var curve25519_sk = sodium.crypto_sign_ed25519_sk_to_curve25519(ed25519SecretKeyAlice);
           }, options)
           .add('sodium.crypto_sign_keypair', function() {
             var keypair = sodium.crypto_sign_keypair();
