@@ -39,20 +39,24 @@
 
         var authenticator;
         var message = 'Hello';
-        var typedKeyMaterial;
+        var salt = '000102030405060708090a0b0c';
+
+        var keyMaterial = [5, 30, 208, 218, 140, 173, 89, 133, 238, 120, 243, 172, 56, 0, 84, 80, 225, 83, 110, 68, 59, 136, 105, 202, 200, 243, 73, 174, 28, 38, 66, 246];
+        var keyMaterialBuffer = new ArrayBuffer(keyMaterial.length);
+        var typedKeyMaterial = new Uint8Array(keyMaterialBuffer);
+
+        var nonce = [0, 1, 2, 3, 4, 5, 6, 7];
+        var nonceBuffer = new ArrayBuffer(nonce.length);
+        var typedNonce = new Uint8Array(nonceBuffer);
 
         suite
           .add('sodium.crypto_auth_hmacsha256', function() {
-            var keyMaterial = [5, 30, 208, 218, 140, 173, 89, 133, 238, 120, 243, 172, 56, 0, 84, 80, 225, 83, 110, 68, 59, 136, 105, 202, 200, 243, 73, 174, 28, 38, 66, 246];
-            var keyMaterialBuffer = new ArrayBuffer(keyMaterial.length);
-            typedKeyMaterial = new Uint8Array(keyMaterialBuffer);
             authenticator = sodium.crypto_auth_hmacsha256(message, typedKeyMaterial);
           }, options)
           .add('sodium.crypto_auth_hmacsha256_verify', function() {
             var isCorrectAuthenticator = sodium.crypto_auth_hmacsha256_verify(authenticator, message, typedKeyMaterial);
           }, options)
           .add('sodium.crypto_hash_sha256', function() {
-            var salt = '000102030405060708090a0b0c';
             var hash = sodium.crypto_hash_sha256(salt);
           }, options)
           .add('sodium.crypto_scalarmult', function() {
@@ -69,6 +73,9 @@
           }, options)
           .add('sodium.crypto_sign_keypair', function() {
             var keypair = sodium.crypto_sign_keypair();
+          }, options)
+          .add('sodium.crypto_stream_chacha20_xor', function() {
+            var encryptedMessage = sodium.crypto_stream_chacha20_xor(message, typedNonce, typedKeyMaterial, 'uint8array');
           }, options)
           .on('cycle', function(event) {
             output += String(event.target) + '<br/>';
