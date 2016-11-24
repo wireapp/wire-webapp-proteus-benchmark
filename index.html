@@ -29,6 +29,14 @@
         var suite = new Benchmark.Suite;
 
         // Globals
+        var aliceKeyPair = sodium.crypto_sign_keypair();
+        var ed25519SecretKeyAlice = aliceKeyPair.privateKey;
+        var curve25519SecretKeyAlice = sodium.crypto_sign_ed25519_sk_to_curve25519(ed25519SecretKeyAlice);
+
+        var bobKeyPair = sodium.crypto_sign_keypair();
+        var ed25519PublicKeyBob = bobKeyPair.publicKey;
+        var curve25519PublicKeyBob = sodium.crypto_sign_ed25519_pk_to_curve25519(ed25519PublicKeyBob);
+
         var authenticator;
         var message;
         var typedKeyMaterial;
@@ -47,6 +55,9 @@
           .add('sodium.crypto_hash_sha256', function() {
             var salt = '000102030405060708090a0b0c';
             var hash = sodium.crypto_hash_sha256(salt);
+          }, options)
+          .add('sodium.crypto_scalarmult', function() {
+            var sharedSecret = sodium.crypto_scalarmult(curve25519SecretKeyAlice, curve25519PublicKeyBob);
           }, options)
           .add('sodium.crypto_sign_keypair', function() {
             var keypair = sodium.crypto_sign_keypair();
