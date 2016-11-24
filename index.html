@@ -38,7 +38,7 @@
         var curve25519PublicKeyBob = sodium.crypto_sign_ed25519_pk_to_curve25519(ed25519PublicKeyBob);
 
         var authenticator;
-        var message;
+        var message = 'Hello';
         var typedKeyMaterial;
 
         suite
@@ -46,7 +46,6 @@
             var keyMaterial = [5, 30, 208, 218, 140, 173, 89, 133, 238, 120, 243, 172, 56, 0, 84, 80, 225, 83, 110, 68, 59, 136, 105, 202, 200, 243, 73, 174, 28, 38, 66, 246];
             var keyMaterialBuffer = new ArrayBuffer(keyMaterial.length);
             typedKeyMaterial = new Uint8Array(keyMaterialBuffer);
-            message = 'Hello';
             authenticator = sodium.crypto_auth_hmacsha256(message, typedKeyMaterial);
           }, options)
           .add('sodium.crypto_auth_hmacsha256_verify', function() {
@@ -58,6 +57,12 @@
           }, options)
           .add('sodium.crypto_scalarmult', function() {
             var sharedSecret = sodium.crypto_scalarmult(curve25519SecretKeyAlice, curve25519PublicKeyBob);
+          }, options)
+          .add('sodium.crypto_sign_detached', function() {
+            var messageSignature = sodium.crypto_sign_detached(message, ed25519SecretKeyAlice);
+          }, options)
+          .add('sodium.crypto_sign_ed25519_pk_to_curve25519', function() {
+            var curve25519 = sodium.crypto_sign_ed25519_pk_to_curve25519(ed25519PublicKeyBob);
           }, options)
           .add('sodium.crypto_sign_keypair', function() {
             var keypair = sodium.crypto_sign_keypair();
