@@ -44,6 +44,10 @@
           .add('sodium.crypto_auth_hmacsha256_verify', function() {
             var isCorrectAuthenticator = sodium.crypto_auth_hmacsha256_verify(authenticator, message, typedKeyMaterial);
           }, options)
+          .add('sodium.crypto_hash_sha256', function() {
+            var salt = '000102030405060708090a0b0c';
+            var hash = sodium.crypto_hash_sha256(salt);
+          }, options)
           .add('sodium.crypto_sign_keypair', function() {
             var keypair = sodium.crypto_sign_keypair();
           }, options)
