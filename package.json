@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "ed2curve": "0.1.4",
+    "jasmine": "2.5.2",
+    "libsodium": "wireapp/libsodium.js#wire-0.1.4"
+  },
+  "name": "wire-webapp-proteus-benchmark",
+  "private": true,
+  "scripts": {
+    "test": "jasmine"
+  },
+  "version": "1.0.0"
+}
