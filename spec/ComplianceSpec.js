@@ -35,6 +35,10 @@ describe('ComplianceSpec', function () {
 
         expect(decrypted).toBe(plainText);
       });
+
+      xit("shows that multiple implementations follow the RFC test vectors from https://tools.ietf.org/html/draft-agl-tls-chacha20poly1305-04#section-7", function () {
+
+      });
     });
   });
 
