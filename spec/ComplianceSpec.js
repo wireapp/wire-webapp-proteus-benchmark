@@ -26,13 +26,12 @@ describe('ComplianceSpec', function () {
         // require("chacha20")
         var key = typedKeyMaterial.buffer;
         var nonce = typedNonce.buffer;
+
         cipherText = chacha20.encrypt(key, nonce, new Buffer(plainText));
         cipherTextInHex = cipherText.toString('hex');
-
         expect(cipherTextInHex).toBe('3edd8cc1cf');
 
         var decrypted = chacha20.decrypt(key, nonce, cipherText).toString();
-
         expect(decrypted).toBe(plainText);
       });
 
