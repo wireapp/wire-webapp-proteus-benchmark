@@ -60,6 +60,7 @@ describe('ComplianceSpec', function () {
         ];
 
         for (var i = 0; i < vectors.length; i++) {
+          // require('libsodium')
           var vector = vectors[i];
 
           var key = sodium.from_hex(vector.key);
@@ -69,6 +70,10 @@ describe('ComplianceSpec', function () {
           var outputMessageAddress = new Uint8Array(keyStream.length >> 1);
           var result = sodium.crypto_stream_chacha20_xor(outputMessageAddress, nonce, key, 'hex');
           expect(result).toBe(keyStream);
+
+          // require("chacha20")
+          var cipherText = chacha20.encrypt(key.buffer, nonce.buffer, new Buffer(outputMessageAddress));
+          expect(cipherText.toString('hex')).toBe(keyStream);
         }
       });
     });
