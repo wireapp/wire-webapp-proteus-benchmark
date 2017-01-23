@@ -66,8 +66,8 @@ describe('ComplianceSpec', function () {
           var nonce = sodium.from_hex(vector.nonce);
           var keyStream = vector.keyStream;
 
-          var message = new Uint8Array(keyStream.length >> 1);
-          var result = sodium.crypto_stream_chacha20_xor(message, nonce, key, 'hex');
+          var outputMessageAddress = new Uint8Array(keyStream.length >> 1);
+          var result = sodium.crypto_stream_chacha20_xor(outputMessageAddress, nonce, key, 'hex');
           expect(result).toBe(keyStream);
         }
       });
