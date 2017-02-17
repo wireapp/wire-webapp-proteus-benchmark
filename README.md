@@ -17,8 +17,9 @@
 
 ### sodium.crypto_auth_hmacsha256
 
-> Keyed message authentication using HMAC-SHA-256. The crypto_auth_hmacsha256(unsigned char *out, const unsigned char *in, unsigned long long inlen, const unsigned char *k) function authenticates a message `in` whose length is `inlen` using the secret key `k` whose length is `crypto_auth_hmacsha256_KEYBYTES`, and puts the authenticator into `out` (crypto_auth_hmacsha256_BYTES bytes).
+**Signature:** `(message: string, key: Uint8Array, output_format?: string): Uint8Array;`
 
+> Keyed message authentication using HMAC-SHA-256. The crypto_auth_hmacsha256(unsigned char *out, const unsigned char *in, unsigned long long inlen, const unsigned char *k) function authenticates a message `in` whose length is `inlen` using the secret key `k` whose length is `crypto_auth_hmacsha256_KEYBYTES`, and puts the authenticator into `out` (crypto_auth_hmacsha256_BYTES bytes).
 
 **Benchmark:**
 
