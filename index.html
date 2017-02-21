@@ -14,13 +14,15 @@
   </head>
   <body>
     <script>
-      require({
+      requirejs.config({
         'paths': {
           'benchmark': 'bower_components/benchmark/benchmark',
           'lodash': 'bower_components/lodash/dist/lodash',
           'platform': 'bower_components/platform.js/platform'
         }
-      }, ['benchmark'], function(Benchmark) {
+      });
+
+      requirejs(['benchmark'], function(Benchmark) {
         document.body.style.cursor = 'wait';
         var onComplete = function() {
           document.write(output);
