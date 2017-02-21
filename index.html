@@ -22,6 +22,10 @@
         }
       }, ['benchmark'], function(Benchmark) {
         document.body.style.cursor = 'wait';
+        var onComplete = function() {
+          document.write(output);
+          document.body.style.cursor = 'default';
+        };
 
         var options = {minSamples: 50};
         var output = '';
@@ -80,10 +84,7 @@
           .on('cycle', function(event) {
             output += String(event.target) + '<br/>';
           })
-          .on('complete', function() {
-            document.write(output);
-            document.body.style.cursor = 'default';
-          }).run({'async': true});
+          .on('complete', onComplete).run({'async': true});
       });
     </script>
   </body>
