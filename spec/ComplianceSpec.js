@@ -1,6 +1,6 @@
-var chacha20 = require("chacha20");
+var chacha20 = require('chacha20');
 var ed2curve = require('ed2curve');
-var sodium = require('libsodium');
+var sodium = require('libsodium-wrappers-sumo');
 
 describe('ComplianceSpec', function () {
 
@@ -33,48 +33,6 @@ describe('ComplianceSpec', function () {
 
         var decrypted = chacha20.decrypt(key, nonce, cipherText).toString();
         expect(decrypted).toBe(plainText);
-      });
-
-      it("shows that multiple implementations follow the RFC test vectors from https://tools.ietf.org/html/draft-agl-tls-chacha20poly1305-04#section-7", function () {
-        var vectors = [
-          {
-            key: '0000000000000000000000000000000000000000000000000000000000000000',
-            nonce: '0000000000000000',
-            keyStream: '76b8e0ada0f13d90405d6ae55386bd28bdd219b8a08ded1aa836efcc8b770dc7da41597c5157488d7724e03fb8d84a376a43b8f41518a11cc387b669b2ee6586'
-          },
-          {
-            key: '0000000000000000000000000000000000000000000000000000000000000001',
-            nonce: '0000000000000000',
-            keyStream: '4540f05a9f1fb296d7736e7b208e3c96eb4fe1834688d2604f450952ed432d41bbe2a0b6ea7566d2a5d1e7e20d42af2c53d792b1c43fea817e9ad275ae546963'
-          },
-          {
-            key: '0000000000000000000000000000000000000000000000000000000000000000',
-            nonce: '0000000000000001',
-            keyStream: 'de9cba7bf3d69ef5e786dc63973f653a0b49e015adbff7134fcb7df137821031e85a050278a7084527214f73efc7fa5b5277062eb7a0433e445f41e3'
-          },
-          {
-            key: '0000000000000000000000000000000000000000000000000000000000000000',
-            nonce: '0100000000000000',
-            keyStream: 'ef3fdfd6c61578fbf5cf35bd3dd33b8009631634d21e42ac33960bd138e50d32111e4caf237ee53ca8ad6426194a88545ddc497a0b466e7d6bbdb0041b2f586b'
-          }
-        ];
-
-        for (var i = 0; i < vectors.length; i++) {
-          // require('libsodium')
-          var vector = vectors[i];
-
-          var key = sodium.from_hex(vector.key);
-          var nonce = sodium.from_hex(vector.nonce);
-          var keyStream = vector.keyStream;
-
-          var outputMessageAddress = new Uint8Array(keyStream.length >> 1);
-          var result = sodium.crypto_stream_chacha20_xor(outputMessageAddress, nonce, key, 'hex');
-          expect(result).toBe(keyStream);
-
-          // require("chacha20")
-          var cipherText = chacha20.encrypt(key.buffer, nonce.buffer, new Buffer(outputMessageAddress));
-          expect(cipherText.toString('hex')).toBe(keyStream);
-        }
       });
     });
   });

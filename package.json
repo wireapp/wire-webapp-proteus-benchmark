@@ -1,13 +1,13 @@
 {
   "dependencies": {
-    "chacha20": "0.1.4"
+    "chacha20": "0.1.4",
+    "ed2curve": "0.2.1",
+    "libsodium-wrappers-sumo": "0.4.9"
   },
   "devDependencies": {
     "benchmark": "2.1.3",
-    "ed2curve": "0.2.1",
     "html": "1.0.0",
     "jasmine": "2.5.2",
-    "libsodium": "wireapp/libsodium.js#wire-0.1.4",
     "striptags": "3.0.1"
   },
   "main": "index.js",
