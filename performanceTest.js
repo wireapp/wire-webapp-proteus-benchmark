@@ -1,6 +1,7 @@
 function performanceTest(Benchmark, sodium, onComplete) {
   var options = {minSamples: 50};
   var output = '';
+  var times = [];
 
   var suite = new Benchmark.Suite;
 
@@ -54,8 +55,11 @@ function performanceTest(Benchmark, sodium, onComplete) {
     }, options)
     .on('cycle', function(event) {
       output += String(event.target) + '<br/>';
+      times.push(event.target.hz);
     })
     .on('complete', function() {
+      var average = times.reduce((x, y) => x + y) / times.length;
+      output += '<br>Average: ' + average.toLocaleString(undefined, { maximumFractionDigits: 0 }) + ' ops/sec';
       onComplete(output);
     }).run({'async': true});
 }
