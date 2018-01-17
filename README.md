@@ -13,7 +13,7 @@
 - 16 GB RAM
 - Windows 10 Home (64 Bit)
 
-## Tests
+## Tests (libsodium.js v0.4.9)
 
 ### sodium.crypto_auth_hmacsha256
 
