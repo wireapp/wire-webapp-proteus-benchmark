@@ -5,7 +5,7 @@ const _sodium = require('libsodium-wrappers-sumo');
 describe('ComplianceSpec', () => {
   describe('ChaCha20', () => {
     describe("crypto_stream_chacha20_xor", () => {
-      fit("proves that sodium's ChaCha20 function is compatible to the chacha20 lib.", async (done) => {
+      it("proves that sodium's ChaCha20 function is compatible to the chacha20 lib.", async (done) => {
         const plainText = 'Hello';
 
         let nonce = [0, 1, 2, 3, 4, 5, 6, 7];
@@ -52,7 +52,10 @@ describe('ComplianceSpec', () => {
       }
     };
 
-    beforeAll(() => {
+    beforeAll(async () => {
+      await _sodium.ready;
+      const sodium = _sodium;
+
       const aliceKeyPair = sodium.crypto_sign_keypair();
 
       alice.keyPair.privateKey.ed25519 = aliceKeyPair.privateKey;
@@ -63,22 +66,32 @@ describe('ComplianceSpec', () => {
     });
 
     describe("crypto_sign_ed25519_pk_to_curve25519", () => {
-      it("converts an Ed25519 public key to a Curve25519 public key", () => {
+      it("converts an Ed25519 public key to a Curve25519 public key", async (done) => {
+        await _sodium.ready;
+        const sodium = _sodium;
+
         const curve25519WithSodium = sodium.crypto_sign_ed25519_pk_to_curve25519(alice.keyPair.publicKey.ed25519);
         const curve25519WithTweetNaCl = ed2curve.convertPublicKey(alice.keyPair.publicKey.ed25519);
 
         expect(curve25519WithSodium).toBeDefined();
         expect(curve25519WithTweetNaCl).toEqual(curve25519WithSodium);
+
+        done();
       });
     });
 
     describe("crypto_sign_ed25519_sk_to_curve25519", () => {
-      it("converts an Ed25519 secret key to a Curve25519 secret key", () => {
+      it("converts an Ed25519 secret key to a Curve25519 secret key", async (done) => {
+        await _sodium.ready;
+        const sodium = _sodium;
+
         const curve25519WithSodium = sodium.crypto_sign_ed25519_sk_to_curve25519(alice.keyPair.privateKey.ed25519);
         const curve25519WithTweetNaCl = ed2curve.convertSecretKey(alice.keyPair.privateKey.ed25519);
 
         expect(curve25519WithSodium).toBeDefined();
         expect(curve25519WithTweetNaCl).toEqual(curve25519WithSodium);
+
+        done();
       });
     });
   });
