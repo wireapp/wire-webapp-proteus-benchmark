@@ -1,5 +1,5 @@
 const Benchmark = require('benchmark');
-const sodium = require('libsodium-wrappers-sumo');
+const _sodium = require('libsodium-wrappers-sumo');
 
 const html = require('html');
 const striptags = require('striptags');
@@ -9,4 +9,10 @@ const onComplete = output => {
   process.stdout.write(striptags(prettyData));
 };
 
-require('./performanceTest')(Benchmark, sodium, onComplete);
+async function start() {
+  await _sodium.ready;
+  const sodium = _sodium;
+  require('./performanceTest')(Benchmark, sodium, onComplete);
+}
+
+start();

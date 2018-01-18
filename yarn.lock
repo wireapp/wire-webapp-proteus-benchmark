@@ -98,15 +98,15 @@ jasmine@2.9.0:
     glob "^7.0.6"
     jasmine-core "~2.9.0"
 
-libsodium-sumo@0.4.9:
-  version "0.4.9"
-  resolved "https://registry.yarnpkg.com/libsodium-sumo/-/libsodium-sumo-0.4.9.tgz#dd6575c819cf12e6d2da798b6b381503eb48d3fe"
+libsodium-sumo@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/libsodium-sumo/-/libsodium-sumo-0.7.3.tgz#c38d99dc3b2c056870ca8f3ac8f1ecbb150ecbbf"
 
-libsodium-wrappers-sumo@0.4.9:
-  version "0.4.9"
-  resolved "https://registry.yarnpkg.com/libsodium-wrappers-sumo/-/libsodium-wrappers-sumo-0.4.9.tgz#7eb1ea56d50c7577fa605dde531c8839c17a0c08"
+libsodium-wrappers-sumo@0.7.3:
+  version "0.7.3"
+  resolved "https://registry.yarnpkg.com/libsodium-wrappers-sumo/-/libsodium-wrappers-sumo-0.7.3.tgz#eeb4fc93a9802c34558e0f2ec350295ba6246fc8"
   dependencies:
-    libsodium-sumo "0.4.9"
+    libsodium-sumo "0.7.3"
 
 lodash@^4.17.4:
   version "4.17.4"
