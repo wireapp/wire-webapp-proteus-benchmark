@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bower": "^1.8.2",
     "chacha20": "0.1.4",
     "ed2curve": "0.2.1",
     "libsodium-wrappers-sumo": "0.7.3"

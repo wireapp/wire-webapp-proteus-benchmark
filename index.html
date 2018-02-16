@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Demo</title>
-    <link rel="shortcut icon" href="data:image/x-icon;" type="image/x-icon" />
-    <script src="bower_components/libsodium.js/dist/browsers-sumo/combined/sodium.min.js"></script>
-    <script src="bower_components/requirejs/require.js"></script>
-    <script src="performanceTest.js"></script>
-    <style>
-      html, body {
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <p>Check <b>console.log</b> output.</p>
-    <script>
-      requirejs.config({
-        'paths': {
-          'benchmark': 'bower_components/benchmark/benchmark',
-          'lodash': 'bower_components/lodash/dist/lodash',
-          'platform': 'bower_components/platform.js/platform'
-        }
-      });
 
-      requirejs(['benchmark'], function(Benchmark) {
+<head>
+  <meta charset="UTF-8" />
+  <title>Demo</title>
+  <link rel="shortcut icon" href="data:image/x-icon;" type="image/x-icon" />
+  <script src="bower_components/lodash/dist/lodash.min.js"></script>
+  <script src="bower_components/platform.js/platform.js"></script>
+  <script src="bower_components/benchmark/benchmark.js"></script>
+  <script src="performanceTest.js"></script>
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <p>Check
+    <b>console.log</b> output.</p>
+  <script>
+    window.sodium = {
+      onload: function (sodium) {
+        console.log('Running benchmark ...')
+
         document.body.style.cursor = 'wait';
 
-        var onComplete = function(output) {
+        var onComplete = function (output) {
           console.log(output);
           document.write(output);
           document.body.style.cursor = 'default';
         };
 
-        performanceTest(Benchmark, window.sodium, onComplete);
-      });
-    </script>
-  </body>
+        performanceTest(Benchmark, sodium, onComplete);
+      }
+    };
+  </script>
+  <script src="bower_components/libsodium.js/dist/browsers-sumo/sodium.js" async></script>
+</body>
+
 </html>
